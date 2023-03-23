@@ -1,0 +1,17 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 6rem;
+  min-height: 100vh;
+  font-size: 1.25rem;
+}
+
+.container {
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
