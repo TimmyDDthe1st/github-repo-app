@@ -1,5 +1,4 @@
-import Nav from "./Nav";
-import styles from "../styles/Layout.module.css";
+import { Container } from "@mui/material";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -8,10 +7,9 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <>
-      <Nav />
-      <div className={styles.container}>
-        <main className={styles.main}>{children}</main>
-      </div>
+      <Container maxWidth="sm" sx={{ pt: 3 }}>
+        <main>{children}</main>
+      </Container>
     </>
   );
 }

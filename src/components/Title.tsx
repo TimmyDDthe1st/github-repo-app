@@ -8,7 +8,7 @@ export default function Title({ title }: TitleProps) {
   return (
     <Head>
       <title>{title}</title>
-      <meta name="keywords" content="programming, blog, code" />
+      <meta name="keywords" content="currency conversion, exchange rate" />
     </Head>
   );
 }
