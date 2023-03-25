@@ -1,4 +1,13 @@
-import { MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  MenuItem,
+  Paper,
+  Select,
+  SelectChangeEvent,
+  styled,
+  TextField,
+} from "@mui/material";
 import { ReactNode, useEffect } from "react";
 import FallbackCountryImage from "@/components/FallbackCountryImage";
 import getFlagImageUrl from "@/utils/getFlagImage";
@@ -20,18 +29,22 @@ export default function CurrencyDropdown({
   name,
   setShowConversionCard,
 }: CurrencyDropdownProps) {
+  const options = Object.keys(currencies);
+
   useEffect(() => {
     setShowConversionCard(false);
   }, [value, setShowConversionCard]);
 
   return (
-    <Select name={name} onChange={handleChange} value={value} sx={{ my: 1 }}>
-      {Object.keys(currencies).map((currency) => (
-        <MenuItem key={currency} value={currency}>
-          <FallbackCountryImage src={getFlagImageUrl(currency)} />
-          {currency}/{currencies[currency]}
-        </MenuItem>
-      ))}
-    </Select>
+    <>
+      <Select name={name} onChange={handleChange} value={value} sx={{ my: 1 }}>
+        {Object.keys(currencies).map((currency) => (
+          <MenuItem key={currency} value={currency}>
+            <FallbackCountryImage src={getFlagImageUrl(currency)} />
+            {currency}/{currencies[currency]}
+          </MenuItem>
+        ))}
+      </Select>
+    </>
   );
 }
