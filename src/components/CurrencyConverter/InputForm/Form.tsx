@@ -82,7 +82,7 @@ export default function Form({ currencies }: FormProps) {
             <IconButton
               data-testid="switch-currencies"
               onClick={handleCurrencySwap}
-              sx={{ color: "primary.main" }}
+              sx={{ color: "secondary.main" }}
             >
               <Repeat />
             </IconButton>
