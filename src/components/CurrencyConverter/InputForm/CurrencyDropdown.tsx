@@ -1,6 +1,7 @@
 import { MenuItem, Select, SelectChangeEvent } from "@mui/material";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect } from "react";
 import FallbackCountryImage from "@/components/FallbackCountryImage";
+import getFlagImageUrl from "@/utils/getFlagImage";
 
 interface CurrencyDropdownProps {
   currencies: {
@@ -9,6 +10,7 @@ interface CurrencyDropdownProps {
   value: string;
   handleChange: (event: SelectChangeEvent<string>, child: ReactNode) => void;
   name: string;
+  setShowConversionCard: (value: boolean) => void;
 }
 
 export default function CurrencyDropdown({
@@ -16,15 +18,11 @@ export default function CurrencyDropdown({
   value,
   handleChange,
   name,
+  setShowConversionCard,
 }: CurrencyDropdownProps) {
-  function getFlagImageUrl(currencyCode: string) {
-    const countryCode = currencyCode.substring(0, 2).toLowerCase();
-    try {
-      return `https://flagcdn.com/32x24/${countryCode}.png`;
-    } catch {
-      return "";
-    }
-  }
+  useEffect(() => {
+    setShowConversionCard(false);
+  }, [value, setShowConversionCard]);
 
   return (
     <Select name={name} onChange={handleChange} value={value} sx={{ my: 1 }}>

@@ -1,10 +1,11 @@
-import { Button, TextField, InputAdornment, IconButton } from "@mui/material";
+import { Button, TextField, IconButton } from "@mui/material";
 import { Repeat } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { useState } from "react";
 import * as yup from "yup";
 import ConversionCard from "../ConversionCard/ConversionCard";
 import CurrencyDropdown from "./CurrencyDropdown";
+import { getRate } from "@/pages/api/currencies";
 
 const inputSchema = yup.object({
   amount: yup
@@ -32,14 +33,6 @@ interface FormProps {
 export default function Form({ currencies }: FormProps) {
   const [rate, setRate] = useState(0);
   const [showConversionCard, setShowConversionCard] = useState(false);
-
-  const getRate = async (currency1: string, currency2: string) => {
-    const response = await fetch(
-      `https://api.exchangerate-api.com/v4/latest/${currency1}`
-    );
-    const data = await response.json();
-    return data.rates[currency2];
-  };
 
   const initialValues: FormValues = {
     amount: 0,
@@ -96,12 +89,14 @@ export default function Form({ currencies }: FormProps) {
         value={values.currency1}
         handleChange={handleChange}
         name="currency1"
+        setShowConversionCard={setShowConversionCard}
       />
       <CurrencyDropdown
         currencies={currencies}
         value={values.currency2}
         handleChange={handleChange}
         name="currency2"
+        setShowConversionCard={setShowConversionCard}
       />
       {showConversionCard && Object.values(errors).length === 0 && (
         <ConversionCard

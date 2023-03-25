@@ -10,6 +10,7 @@ describe("<CurrencyDropdown />", () => {
         value={"USD"}
         handleChange={() => {}}
         name="currency"
+        setShowConversionCard={() => {}}
       />
     )
   );

@@ -1,17 +1,11 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
-
 export interface Currencies {
 	[key: string]: string;
 }
 
-type Data = {
-  name: string
-}
-
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  res.status(200).json({ name: 'John Doe' })
-}
+export const getRate = async (currency1: string, currency2: string) => {
+  const response = await fetch(
+    `https://api.exchangerate-api.com/v4/latest/${currency1}`
+  );
+  const data = await response.json();
+  return data.rates[currency2];
+};
