@@ -1,18 +1,11 @@
 import CurrencyConverter from "@/components/CurrencyConverter";
 import Title from "../components/Title";
-interface Article {
-  body: string;
-  id: number;
-  title: string;
-  userId: number;
-}
+import { Currencies } from "./api/currencies";
 interface HomeProps {
-  currencies: {
-    [key: string]: string;
-  };
+  currencies: Currencies;
 }
 
-export default function Home({ currencies }: any) {
+export default function Home({ currencies }: HomeProps) {
   return (
     <div>
       <Title title="home" />
