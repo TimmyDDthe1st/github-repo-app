@@ -9,17 +9,17 @@ export default function FallbackCountryImage({
   src,
   ...rest
 }: FallbackImageProps) {
-  const [imgSrc, setImgSrc] = useState(src);
+  const [imageSrc, setImageSrc] = useState(src);
 
   useEffect(() => {
-    setImgSrc(src);
+    setImageSrc(src);
   }, [src]);
 
   return (
     <Image
       {...rest}
-      src={imgSrc ? imgSrc : "/no-currency-fallback.svg"}
-      onError={() => setImgSrc("/no-currency-fallback.svg")}
+      src={imageSrc ? imageSrc : "/no-currency-fallback.svg"}
+      onError={() => setImageSrc("/no-currency-fallback.svg")}
       alt="currencyImage"
       width={16}
       height={12}
