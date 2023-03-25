@@ -5,10 +5,7 @@ interface FallbackImageProps {
   src: string;
 }
 
-export default function FallbackCountryImage({
-  src,
-  ...rest
-}: FallbackImageProps) {
+export default function FallbackCountryImage({ src }: FallbackImageProps) {
   const [imageSrc, setImageSrc] = useState(src);
 
   useEffect(() => {
@@ -17,7 +14,6 @@ export default function FallbackCountryImage({
 
   return (
     <Image
-      {...rest}
       src={imageSrc ? imageSrc : "/no-currency-fallback.svg"}
       onError={() => setImageSrc("/no-currency-fallback.svg")}
       alt="currencyImage"
