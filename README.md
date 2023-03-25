@@ -27,7 +27,7 @@ And run our end to end tests with...
 ```bash
 npm run e2e-test     
 ```
-This will spin up and wait for the dev server before running the end to end tests.
+This will spin up and wait for the dev server before running the end to end tests, you also need to stop your local server for this command to work, the server start will start on the next available port (3001) so Cypress won't be able to navigate to it.
 
 To open the Cypress test viewer for development purposes run...
 
