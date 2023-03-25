@@ -15,11 +15,20 @@ export default function ConversionRate({
   currency2,
 }: ConversionRateProps) {
   return (
-    <Box>
-      <Typography>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        pt: 1,
+      }}
+    >
+      <Typography color="primary.main">
         {amountToConvert} {currency1} is equivalent to&nbsp;
         {convertCurrency(rate, amountToConvert).toFixed(2)} {currency2}
       </Typography>
+      <Typography>{`The current rate is ${rate}`}</Typography>
     </Box>
   );
 }

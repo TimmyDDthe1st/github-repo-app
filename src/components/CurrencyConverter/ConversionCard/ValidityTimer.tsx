@@ -10,6 +10,11 @@ interface ValidityTimerProps {
   setShowConversionCard: (value: boolean) => void;
 }
 
+const TypographyStyle = {
+  color: "white",
+  p: 1,
+};
+
 export default function ValidityTimer({
   initialMinute,
   initialSeconds,
@@ -46,15 +51,35 @@ export default function ValidityTimer({
   }, [minutes, seconds]);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "row" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        minWidth: "20px",
+        mx: "auto",
+        my: 2,
+        borderStyle: "solid",
+        borderColor: "primary.light",
+        borderWidth: "5px",
+        backgroundColor: "primary.main",
+      }}
+    >
       <>
-        <Typography>Expires in&nbsp;</Typography>
         {minutes === 0 && seconds === 0 ? (
-          setShowConversionCard(false)
+          <>
+            <Typography color="white">Rate has expired</Typography>
+            {setShowConversionCard(false)}
+          </>
         ) : (
-          <Typography>
-            {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-          </Typography>
+          <>
+            <Typography noWrap sx={TypographyStyle}>
+              Expires in:&nbsp;
+            </Typography>
+            <Typography noWrap sx={TypographyStyle}>
+              {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+            </Typography>
+          </>
         )}
       </>
     </Box>

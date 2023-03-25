@@ -3,14 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "start": "next dev",
+    "cy:run": "cypress run",
+    "e2e-test": "start-server-and-test start localhost:3000 cy:run",
+    "test": "cypress run --component",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cy-open": "cypress open"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.14",
     "@types/node": "18.15.5",
     "@types/react": "18.0.28",
@@ -21,7 +25,11 @@
     "next": "13.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "5.0.2",
     "yup": "^1.0.2"
+  },
+  "devDependencies": {
+    "cypress": "^12.8.1",
+    "start-server-and-test": "^2.0.0",
+    "typescript": "^5.0.2"
   }
 }
