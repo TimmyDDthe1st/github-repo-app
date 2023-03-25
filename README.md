@@ -1,38 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a currency converter, using open source apis for the data.
 
 ## Getting Started
 
-First, run the development server:
+First, install the dependencies...
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then we'll need to start our dev server...
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```bash
+npm start
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+We can run our integration level tests with...
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```bash
+npm test
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+And run our end to end tests with...
 
-## Learn More
+```bash
+npm run e2e-test
+```
+This will spin up and wait for the dev server before running the end to end tests.
 
-To learn more about Next.js, take a look at the following resources:
+To open the Cypress test viewer for development purposes run...
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run cy-open
+```
+You'll need to have the dev server running for this to work.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## How to use
 
-## Deploy on Vercel
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the currency converter and have a play around with it.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Packages used
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+ReactJS, NextJS, MUI5 for good visual base, Cypress for component/e2e testing, Formik for the form handling and Yup for validation.
+
+## Endpoints
+
+Rates API: https://api.exchangerate-api.com/v4/latest/GBP
+
+Countries API: https://openexchangerates.org/api/currencies.json
+
+Flag API: https://flagpedia.net/download/api
