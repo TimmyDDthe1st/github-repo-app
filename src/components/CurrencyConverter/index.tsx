@@ -1,6 +1,6 @@
 import { Card } from "@mui/material";
 import Form from "./InputForm/Form";
-import { Currencies } from "../../pages/api/currencies";
+import { Currencies } from "@/pages/api/currencies";
 
 interface CurrencyConverterProps {
   currencies: Currencies;

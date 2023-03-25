@@ -18,11 +18,24 @@ export default function Home({ currencies }: HomeProps) {
 }
 
 export const getStaticProps = async () => {
-  const res = await fetch("https://openexchangerates.org/api/currencies.json");
-  const currencies = await res.json();
-  return {
-    props: {
-      currencies,
-    },
-  };
+  try {
+    const res = await fetch(
+      "https://openexchangerates.org/api/currencies.json"
+    );
+    const currencies = await res.json();
+    return {
+      props: {
+        currencies,
+      },
+    };
+  } catch {
+    return {
+      props: {
+        currencies: {
+          GBP: "British Pound Sterling",
+          USD: "United States Dollar",
+        },
+      },
+    };
+  }
 };

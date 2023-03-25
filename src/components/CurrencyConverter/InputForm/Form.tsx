@@ -33,6 +33,7 @@ interface FormProps {
 export default function Form({ currencies }: FormProps) {
   const [rate, setRate] = useState(0);
   const [showConversionCard, setShowConversionCard] = useState(false);
+  const [error, setError] = useState(false);
 
   const initialValues: FormValues = {
     amount: 0,
@@ -51,8 +52,12 @@ export default function Form({ currencies }: FormProps) {
   } = useFormik({
     initialValues,
     onSubmit: async (values) => {
-      setRate(await getRate(values.currency1, values.currency2));
-      setShowConversionCard(true);
+      try {
+        setRate(await getRate(values.currency1, values.currency2));
+        setShowConversionCard(true);
+      } catch {
+        errors.amount = "Couldn't get the rate, please try again...";
+      }
     },
     validationSchema: inputSchema,
   });

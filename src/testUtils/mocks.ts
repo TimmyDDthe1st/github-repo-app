@@ -1,4 +1,4 @@
-import { Currencies } from '../pages/api/currencies';
+import { Currencies } from '@/pages/api/currencies';
 
 export const MockCurrencies: Currencies = { "USD": "United States Dollar", "EUR": "Euro", "GBP": "Great British Pounds" };
 
