@@ -1,3 +1,5 @@
+## Description
+
 This is a currency converter, using open source apis for the data.
 
 ## Getting Started
@@ -5,25 +7,25 @@ This is a currency converter, using open source apis for the data.
 First, install the dependencies...
 
 ```bash
-npm install
+npm install  
 ```
 
 Then we'll need to start our dev server...
 
 ```bash
-npm start
+npm start     
 ```
 
 We can run our integration level tests with...
 
 ```bash
-npm test
+npm test     
 ```
 
 And run our end to end tests with...
 
 ```bash
-npm run e2e-test
+npm run e2e-test     
 ```
 This will spin up and wait for the dev server before running the end to end tests.
 
