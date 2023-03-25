@@ -29,8 +29,6 @@ export default function CurrencyDropdown({
   name,
   setShowConversionCard,
 }: CurrencyDropdownProps) {
-  const options = Object.keys(currencies);
-
   useEffect(() => {
     setShowConversionCard(false);
   }, [value, setShowConversionCard]);

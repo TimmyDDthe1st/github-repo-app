@@ -8,7 +8,7 @@ interface HomeProps {
 export default function Home({ currencies }: HomeProps) {
   return (
     <div>
-      <Title title="home" />
+      <Title title="Convert your currency!" />
       <CurrencyConverter currencies={currencies} />
     </div>
   );
