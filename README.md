@@ -15,6 +15,7 @@ Then we'll need to start our dev server...
 ```bash
 npm start     
 ```
+Note that the first start will take a while, after the first start it becomes quicker, I assume this is due to it building everything for the first time, then switching to module refreshing.
 
 We can run our integration level tests with...
 
