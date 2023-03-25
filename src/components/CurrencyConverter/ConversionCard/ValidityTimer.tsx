@@ -39,6 +39,7 @@ export default function ValidityTimer({
       if (seconds === 0) {
         if (minutes === 0) {
           clearInterval(currentInterval);
+          setShowConversionCard(false);
         } else {
           setMinutes(minutes - 1);
           setSeconds(59);
@@ -69,7 +70,6 @@ export default function ValidityTimer({
         {minutes === 0 && seconds === 0 ? (
           <>
             <Typography color="white">Rate has expired</Typography>
-            {setShowConversionCard(false)}
           </>
         ) : (
           <>
