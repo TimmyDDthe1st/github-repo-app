@@ -1,16 +1,19 @@
 import CurrencyConverter from "@/components/CurrencyConverter";
 import Title from "../components/Title";
 import { Currencies } from "./api/currencies";
+import { ThemeProvider } from "@mui/material";
+import { theme } from "../theme";
+
 interface HomeProps {
   currencies: Currencies;
 }
 
 export default function Home({ currencies }: HomeProps) {
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <Title title="Convert your currency!" />
       <CurrencyConverter currencies={currencies} />
-    </div>
+    </ThemeProvider>
   );
 }
 
