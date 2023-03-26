@@ -49,7 +49,7 @@ export default function ValidityTimer({
     return () => {
       clearInterval(currentInterval);
     };
-  }, [minutes, seconds]);
+  }, [minutes, seconds, setShowConversionCard]);
 
   return (
     <Box

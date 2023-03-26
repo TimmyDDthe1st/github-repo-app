@@ -1,7 +1,7 @@
 import { Button, TextField, IconButton } from "@mui/material";
 import { Repeat } from "@mui/icons-material";
 import { useFormik } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as yup from "yup";
 import ConversionCard from "../ConversionCard/ConversionCard";
 import CurrencyDropdown from "./CurrencyDropdown";
@@ -33,7 +33,6 @@ interface FormProps {
 export default function Form({ currencies }: FormProps) {
   const [rate, setRate] = useState(0);
   const [showConversionCard, setShowConversionCard] = useState(false);
-  const [error, setError] = useState(false);
 
   const initialValues: FormValues = {
     amount: 0,
@@ -67,6 +66,10 @@ export default function Form({ currencies }: FormProps) {
     setFieldValue("currency2", values.currency1);
     setShowConversionCard(false);
   };
+
+  useEffect(() => {
+    setShowConversionCard(false);
+  }, [values.amount]);
 
   return (
     <>
