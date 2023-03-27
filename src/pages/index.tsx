@@ -1,6 +1,6 @@
 import CurrencyConverter from "@/components/CurrencyConverter";
 import Title from "../components/Title";
-import { Currencies } from "./api/currencies";
+import { Currencies, getAllCurrencies } from "./api/currencies";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "../theme";
 
@@ -19,10 +19,7 @@ export default function Home({ currencies }: HomeProps) {
 
 export const getStaticProps = async () => {
   try {
-    const res = await fetch(
-      "https://openexchangerates.org/api/currencies.json"
-    );
-    const currencies = await res.json();
+    const currencies = await getAllCurrencies();
     return {
       props: {
         currencies,
