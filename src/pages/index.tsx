@@ -1,38 +1,35 @@
-import CurrencyConverter from "@/components/CurrencyConverter";
 import Title from "../components/Title";
-import { Currencies, getAllCurrencies } from "./api/currencies";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "../theme";
+import { getRepositories, IGithubRepository } from "./api/repositories";
+import Layout from "@/components/Layout";
+import { useEffect, useState } from "react";
 
 interface HomeProps {
-  currencies: Currencies;
+  allRepositories: IGithubRepository[];
 }
 
-export default function Home({ currencies }: HomeProps) {
+export default function Home({ allRepositories }: HomeProps) {
+  const [repositories, setRepositories] = useState<any[]>([]);
+  useEffect(() => {
+    const effect = async () => {
+      try {
+        const response = await getRepositories('TimmyDDthe1st');
+        const allRepositories = response.data;
+        setRepositories(allRepositories);
+      } catch (error) {
+        console.error(error);
+
+      }
+    }
+    effect();
+    console.log(repositories);
+  }, [repositories])
+
   return (
     <ThemeProvider theme={theme}>
-      <Title title="Convert your currency!" />
-      <CurrencyConverter currencies={currencies} />
+      <Title title="Github Repositories" />
+      {allRepositories && <Layout repositories={allRepositories} />}
     </ThemeProvider>
   );
 }
-
-export const getStaticProps = async () => {
-  try {
-    const currencies = await getAllCurrencies();
-    return {
-      props: {
-        currencies,
-      },
-    };
-  } catch {
-    return {
-      props: {
-        currencies: {
-          GBP: "British Pound Sterling",
-          USD: "United States Dollar",
-        },
-      },
-    };
-  }
-};

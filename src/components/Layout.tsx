@@ -1,14 +1,17 @@
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
+import List from "./List";
+import { IGithubRepository } from "@/pages/api/repositories";
 
-interface LayoutProps {
-  children: React.ReactNode;
+interface ILayoutProps {
+  repositories: IGithubRepository[];
 }
 
-export default function Layout({ children }: LayoutProps) {
+export default function Layout({ repositories }: ILayoutProps) {
   return (
     <>
-      <Container maxWidth="sm" sx={{ pt: 3 }}>
-        <main>{children}</main>
+      <Container maxWidth="lg" sx={{ pt: 3 }}>
+        <Typography variant="h1" sx={{ mb: 3, textAlign: 'center' }}>Github Repository Viewer</Typography>
+        <List repositories={repositories} />
       </Container>
     </>
   );
