@@ -1,3 +1,4 @@
+import { NextApiRequest, NextApiResponse } from 'next'
 import { Octokit } from "octokit";
 
 interface IGithubUser {
@@ -114,15 +115,40 @@ export interface IGithubRepository {
   };
 }
 
-export default async function getAllRepositories (req, res) {
+interface IGetAllDataReponse {
+  forks: number;
+  stars: number;
+  issues: number;
+  repoData: {
+    repoName: string;
+    author: string;
+  }
+  reposData: any
+}
+
+export default async function getAllData (req: NextApiRequest, res: NextApiResponse) {
   const octokit = new Octokit({
     auth: process.env.API_KEY
   });
 
-  const followers = await octokit.request('GET /users/TimmyDDthe1st/followers?per_page=100')
-  const followerCount = followers.data.length
-  const stars = await octokit.request('GET /users/TimmyDDthe1st/repos?per_page=100')
-  const starsCount = stars.data.filter((repo: IGithubRepository) => !repo.fork).reduce((acc: number, item: IGithubRepository) => acc + item.stargazers_count, 0);
-  console.log(stars)
-  return res.status(200).json({followers, followerCount, stars, starsCount})
+  const repos = await octokit.request('GET /users/TimmyDDthe1st/repos')
+  const starsCount = repos.data.reduce((acc: number, item: IGithubRepository) => acc + item.stargazers_count, 0);
+  const forkCount = repos.data.reduce((acc: number, item: IGithubRepository) => acc + item.forks_count, 0);
+  const issueCount = repos.data.reduce((acc: number, item: IGithubRepository) => acc + item.open_issues_count, 0);
+
+  const repoData = repos.data.map((item: IGithubRepository) => ({
+    repoName: item.name,
+    author: item.owner.login,
+    repoLink: item.html_url
+  }))
+
+  const response: IGetAllDataReponse = {
+    forks: forkCount,
+    stars: starsCount,
+    issues: issueCount,
+    repoData,
+    reposData: repos.data
+  };
+
+  return res.status(200).json(response)
 }
