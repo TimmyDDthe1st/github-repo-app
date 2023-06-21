@@ -1,11 +1,21 @@
 import {
+  Box,
   Card,
   CardActionArea,
   CardContent,
   Collapse,
-  Link,
+  IconButton,
   Typography,
 } from "@mui/material";
+import {
+  ExpandMore,
+  ExpandLess,
+  Star,
+  BugReport,
+  ForkRight,
+  RemoveRedEye,
+} from "@mui/icons-material";
+
 import { useState } from "react";
 
 interface IRepoCardProps {
@@ -13,54 +23,49 @@ interface IRepoCardProps {
     author: string;
     repoLink: string;
     repoName: string;
+    stars: number;
+    forks: number;
+    issues: number;
+    watchers: number;
   };
 }
 
 export default function RepoCard({ repo }: IRepoCardProps) {
+  const { author, repoLink, repoName, stars, forks, issues, watchers } = repo;
   const [expanded, setExpanded] = useState(false);
-  const { author, repoLink, repoName } = repo;
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   return (
-    <CardActionArea href={repoLink}>
-      <Card sx={{ display: "flex", flexDirection: "column", p: 3 }}>
-        <CardContent>
+    <Card sx={{ display: "flex", flexDirection: "column", p: 3 }}>
+      <CardContent>
+        <CardActionArea href={repoLink}>
           <Typography variant="h5">Author</Typography>
           <Typography>{author}</Typography>
           <Typography variant="h5">Project Name</Typography>
           <Typography>{repoName}</Typography>
+        </CardActionArea>
+        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <IconButton onClick={handleExpandClick}>
+            {expanded ? <ExpandLess /> : <ExpandMore />}
+          </IconButton>
+        </Box>
+      </CardContent>
+
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent sx={{ display: "flex", justifyContent: "center" }}>
+          <Star />
+          <Typography sx={{ pl: 2 }}>{stars}</Typography>
+          <BugReport sx={{ pl: 2 }} />
+          <Typography sx={{ pl: 2 }}>{issues}</Typography>
+          <ForkRight sx={{ pl: 2 }} />
+          <Typography sx={{ pl: 2 }}>{forks}</Typography>
+          <RemoveRedEye sx={{ pl: 2 }} />
+          <Typography sx={{ pl: 2 }}>{watchers}</Typography>
         </CardContent>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography paragraph>Method:</Typography>
-            <Typography paragraph>
-              Heat 1/2 cup of the broth in a pot until simmering, add saffron
-              and set aside for 10 minutes.
-            </Typography>
-            <Typography paragraph>
-              Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet
-              over medium-high heat. Add chicken, shrimp and chorizo, and cook,
-              stirring occasionally until lightly browned, 6 to 8 minutes.
-              Transfer shrimp to a large plate and set aside, leaving chicken
-              and chorizo in the pan. Add pimentón, bay leaves, garlic,
-              tomatoes, onion, salt and pepper, and cook, stirring often until
-              thickened and fragrant, about 10 minutes. Add saffron broth and
-              remaining 4 1/2 cups chicken broth; bring to a boil.
-            </Typography>
-            <Typography paragraph>
-              Add rice and stir very gently to distribute. Top with artichokes
-              and peppers, and cook without stirring, until most of the liquid
-              is absorbed, 15 to 18 minutes. Reduce heat to medium-low, add
-              reserved shrimp and mussels, tucking them down into the rice, and
-              cook again without stirring, until mussels have opened and rice is
-              just tender, 5 to 7 minutes more. (Discard any mussels that
-              don&apos;t open.)
-            </Typography>
-            <Typography>
-              Set aside off of the heat to let rest for 10 minutes, and then
-              serve.
-            </Typography>
-          </CardContent>
-        </Collapse>
-      </Card>
-    </CardActionArea>
+      </Collapse>
+    </Card>
   );
 }

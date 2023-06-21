@@ -1,4 +1,5 @@
 import { NextApiResponse, NextApiRequest } from 'next'
+import { useRouter } from 'next/router';
 import { Octokit } from "octokit";
 
 interface IGithubUser {
@@ -116,40 +117,42 @@ export interface IGithubRepository {
 }
 
 export interface IGetAllDataReponse {
-  forks: number;
-  stars: number;
-  issues: number;
   repoData: {
     repoName: string;
     author: string;
     repoLink: string;
+    forks: number;
+    stars: number;
+    issues: number;
   }[]
-  reposData: any
 }
 
-export default async function getAllData (req: NextApiRequest, res: NextApiResponse) {
+export default async function getAllData(req: NextApiRequest, res: NextApiResponse) {
+  const authorName = req.query.authorName;
+
   const octokit = new Octokit({
     auth: process.env.API_KEY
   });
 
-  const repos = await octokit.request('GET /users/TimmyDDthe1st/repos')
-  const starsCount = repos.data.reduce((acc: number, item: IGithubRepository) => acc + item.stargazers_count, 0);
-  const forkCount = repos.data.reduce((acc: number, item: IGithubRepository) => acc + item.forks_count, 0);
-  const issueCount = repos.data.reduce((acc: number, item: IGithubRepository) => acc + item.open_issues_count, 0);
+  if (authorName !== '') {
+    const repos = await octokit.request(`GET /users/${authorName}/repos`)
 
-  const repoData = repos.data.map((item: IGithubRepository) => ({
-    repoName: item.name,
-    author: item.owner.login,
-    repoLink: item.html_url
-  }))
+    const repoData = repos.data.map((item: IGithubRepository) => ({
+      repoName: item.name,
+      author: item.owner.login,
+      repoLink: item.html_url,
+      forks: item.forks_count,
+      stars: item.stargazers_count,
+      issues: item.open_issues_count,
+      watchers: item.watchers_count,
+    }))
 
-  const response: IGetAllDataReponse = {
-    forks: forkCount,
-    stars: starsCount,
-    issues: issueCount,
-    repoData,
-    reposData: repos.data
-  };
+    const response: IGetAllDataReponse = {
+      repoData,
+    };
 
-  return res.status(200).json(response)
+    return res.status(200).json(response)
+  }
+
+  return res.status(404).json({ repoData: [] })
 }
