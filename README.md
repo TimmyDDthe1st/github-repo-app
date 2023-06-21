@@ -47,3 +47,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Packages used
 
 ReactJS, NextJS, MUI5 for good visual base, Cypress for component/e2e testing.
+
+## If I had more time
+
+- I would have written component tests and e2e tests using Cypress.
+- Gotten the readme's per repository working.
+- Sorted out a time delay when the user finishes typing to perform the request to find the users repo's.
