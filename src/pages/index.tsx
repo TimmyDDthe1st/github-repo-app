@@ -6,23 +6,32 @@ import { useEffect, useState } from "react";
 import { IGetAllDataReponse } from "./api/repositories";
 
 export default function Home() {
-  const [data, setData] = useState<IGetAllDataReponse>()
-  const baseUrl = '/api/repositories';
+  const [loading, setLoading] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>("");
+  const [data, setData] = useState<IGetAllDataReponse>();
+  const baseUrl = `/api/repositories/?authorName=${search}`;
 
   useEffect(() => {
-        fetch(baseUrl)
-        .then(res => res.json())
-        .then(data => setData(data))
-        .catch(err => console.log(err))
+    setLoading(true);
+    const effect = async () => {
+      try {
+        const res = await fetch(baseUrl);
+        const repos = await res.json();
+        setData(repos);
+        setLoading(false);
+      } catch (e) {
+        console.log(e);
+        setLoading(false);
+      }
+    };
 
-    },[])
-
-  {console.log(data)}
+    effect();
+  }, [baseUrl]);
 
   return (
     <ThemeProvider theme={theme}>
       <Title title="Github Repositories" />
-      {data && <Layout repositories={data} />}
+      <Layout repositories={data} setSearch={setSearch} loading={loading} />
     </ThemeProvider>
   );
 }
