@@ -1,35 +1,28 @@
 import Title from "../components/Title";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "../theme";
-import { getAllData, IGithubRepository } from "./api/repositories";
 import Layout from "@/components/Layout";
 import { useEffect, useState } from "react";
+import { IGetAllDataReponse } from "./api/repositories";
 
-interface HomeProps {
-  allRepositories: IGithubRepository[];
-}
-
-export default function Home({ allRepositories }: HomeProps) {
-  const [repositories, setRepositories] = useState<any[]>([]);
+export default function Home() {
+  const [data, setData] = useState<IGetAllDataReponse>()
+  const baseUrl = '/api/repositories';
 
   useEffect(() => {
-    const effect = async () => {
-      try {
-        const response = await getAllData();
-        const allRepositories = response.data;
-        setRepositories(allRepositories);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    effect();
-    console.log(repositories);
-  }, [repositories])
+        fetch(baseUrl)
+        .then(res => res.json())
+        .then(data => setData(data))
+        .catch(err => console.log(err))
+
+    },[])
+
+  {console.log(data)}
 
   return (
     <ThemeProvider theme={theme}>
       <Title title="Github Repositories" />
-      {allRepositories && <Layout repositories={allRepositories} />}
+      {data && <Layout repositories={data} />}
     </ThemeProvider>
   );
 }

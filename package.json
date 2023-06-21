@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "next dev",
+    "start": "NODE_OPTIONS='--inspect' next dev",
     "cy:run": "cypress run",
     "e2e-test": "start-server-and-test start localhost:3000 cy:run",
     "test": "cypress run --component",
@@ -26,6 +26,7 @@
     "octokit": "^2.0.19",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "swr": "^2.1.5",
     "yup": "^1.0.2"
   },
   "devDependencies": {
