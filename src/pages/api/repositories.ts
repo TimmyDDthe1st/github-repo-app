@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next'
+import { NextApiResponse, NextApiRequest } from 'next'
 import { Octokit } from "octokit";
 
 interface IGithubUser {
@@ -115,14 +115,15 @@ export interface IGithubRepository {
   };
 }
 
-interface IGetAllDataReponse {
+export interface IGetAllDataReponse {
   forks: number;
   stars: number;
   issues: number;
   repoData: {
     repoName: string;
     author: string;
-  }
+    repoLink: string;
+  }[]
   reposData: any
 }
 

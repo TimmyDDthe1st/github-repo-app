@@ -9,5 +9,8 @@ export const theme = createTheme({
     secondary: {
 		main: '#ef4c45',
 	},
- },
+	},
+	typography: {
+    fontFamily: 'Raleway, Arial',
+  },
 });

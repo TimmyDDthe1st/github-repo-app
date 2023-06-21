@@ -1,9 +1,8 @@
 import { Container, Typography } from "@mui/material";
 import List from "./List";
-import { IGithubRepository } from "@/pages/api/repositories";
-
+import { IGetAllDataReponse } from "@/pages/api/repositories";
 interface ILayoutProps {
-  repositories: IGithubRepository[];
+  repositories: IGetAllDataReponse;
 }
 
 export default function Layout({ repositories }: ILayoutProps) {
